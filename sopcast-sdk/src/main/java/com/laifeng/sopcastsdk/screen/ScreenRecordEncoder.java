@@ -83,13 +83,13 @@ public class ScreenRecordEncoder {
         mEncoderHandler.removeCallbacks(null);
         mHandlerThread.quit();
         encodeLock.lock();
-        mMediaCodec.signalEndOfInputStream();
         releaseEncoder();
         encodeLock.unlock();
     }
 
     private void releaseEncoder() {
         if (mMediaCodec != null) {
+            mMediaCodec.signalEndOfInputStream();
             mMediaCodec.stop();
             mMediaCodec.release();
             mMediaCodec = null;
